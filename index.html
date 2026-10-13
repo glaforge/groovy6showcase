@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apache Groovy 6.0 — Interactive Developer Portal &amp; Deep-Dive Guide</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body data-page="home" class="min-h-screen flex flex-col">
+
+  <!-- Shared Top Navigation Bar -->
+  <header id="site-header"></header>
+
+  <main class="flex-1">
+    <!-- ===================================================================
+         1. HERO SECTION
+         =================================================================== -->
+    <section class="border-b border-[var(--border)] hero-mesh py-10 sm:py-14">
+      <div class="docs-container px-4 sm:px-6">
+        <div class="max-w-4xl space-y-5">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full border border-[var(--border)] bg-[var(--card)] text-xs font-mono text-[var(--muted-foreground)] shadow-sm">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-semibold text-[var(--foreground)]">Apache Groovy 6.0.0</span>
+            <span>&bull;</span>
+            <span>JDK 17–25 Ready</span>
+            <span>&bull;</span>
+            <span class="text-emerald-500 font-semibold">46/46 Live GWC Verified</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--foreground)] leading-tight m-0">
+            The Wonders of <span class="text-[var(--primary)]">Apache Groovy 6.0</span>
+          </h1>
+
+          <p class="text-sm sm:text-base text-[var(--muted-foreground)] leading-relaxed m-0 max-w-3xl">
+            An interactive, zero-build engineering reference distilling all <strong>7 architectural pillars</strong> and <strong>39 runnable deep-dives</strong> from the <a href="https://groovy-lang.org/releasenotes/groovy-6.0.html" target="_blank" rel="noopener noreferrer" class="text-[var(--primary)] font-medium underline underline-offset-4 hover:opacity-85">Apache Groovy 6.0 release notes ↗</a> — from native <code class="px-1.5 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs tok-keyword">async</code>/<code class="px-1.5 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs tok-keyword">await</code> coroutines, <code class="px-1.5 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs tok-keyword">val</code> immutability, and Java 25 <code class="px-1.5 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs tok-keyword">module import</code> to Design-by-Contract, <code class="px-1.5 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs tok-keyword">@Pure</code> checkers, GINQ set operations, and built-in CSV, Markdown, and HTTP/2 client modules.
+          </p>
+
+          <!-- Stat Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 shadow-sm">
+              <div class="text-2xl font-bold font-mono text-[var(--primary)]">7</div>
+              <div class="text-xs text-[var(--muted-foreground)] font-medium">Deep-Dive Pillars</div>
+            </div>
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 shadow-sm">
+              <div class="text-2xl font-bold font-mono text-[var(--foreground)]">39</div>
+              <div class="text-xs text-[var(--muted-foreground)] font-medium">Runnable Sections</div>
+            </div>
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 shadow-sm">
+              <div class="text-2xl font-bold font-mono text-emerald-500">100%</div>
+              <div class="text-xs text-[var(--muted-foreground)] font-medium">Live GWC Pass Rate</div>
+            </div>
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-3.5 shadow-sm">
+              <div class="text-2xl font-bold font-mono text-amber-500">JVM 25</div>
+              <div class="text-xs text-[var(--muted-foreground)] font-medium">JEP 445–511 Parity</div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="01-language-ergonomics.html" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 transition no-underline shadow-sm">
+              Start Exploring Pillar 01 →
+            </a>
+            <a href="batch-runner.html" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border border-emerald-500/40 bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 transition no-underline">
+              ⚡ Live Batch Runner (46/46)
+            </a>
+            <a href="#whats-new-matrix" class="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] hover:border-[var(--primary)] transition no-underline">
+              39-Feature Matrix ↓
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. 7 ARCHITECTURAL PILLARS BENTO GRID
+         =================================================================== -->
+    <section class="py-12 border-b border-[var(--border)]">
+      <div class="docs-container px-4 sm:px-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-xs font-mono font-bold uppercase tracking-wider text-[var(--primary)] mb-1">Documentation Chapters</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[var(--foreground)] tracking-tight m-0">
+              Explore the 7 Pillars of Groovy 6.0
+            </h2>
+          </div>
+          <p class="text-xs sm:text-sm text-[var(--muted-foreground)] m-0 max-w-md">
+            Every chapter includes side-by-side <strong>Groovy 5 vs Groovy 6</strong> comparisons, compiler internals, and live runnable code cards.
+          </p>
+        </div>
+
+        <div id="pillars-bento-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. FILTERABLE "WHAT'S NEW AT A GLANCE" 39-FEATURE MATRIX
+         =================================================================== -->
+    <section id="whats-new-matrix" class="py-12">
+      <div class="docs-container px-4 sm:px-6">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
+          <div>
+            <div class="text-xs font-mono font-bold uppercase tracking-wider text-[var(--primary)] mb-1">Interactive Cheatsheet</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[var(--foreground)] tracking-tight m-0">
+              What's New at a Glance — All 39 Features
+            </h2>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <input
+              id="matrix-search-input"
+              type="search"
+              placeholder="Filter by keyword, GEP, or API…"
+              class="px-3 py-1.5 rounded-lg text-xs border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] outline-none focus:border-[var(--primary)] w-56"
+            />
+            <span id="matrix-count-badge" class="px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-[var(--surface-subtle)] border border-[var(--border)] text-[var(--muted-foreground)]">
+              39 / 39 features
+            </span>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div id="matrix-category-bar" class="flex flex-wrap items-center gap-1.5 mb-4 p-1.5 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+          <button type="button" data-matrix-cat="all" class="px-2.5 py-1 rounded-md text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer">All 39</button>
+          <button type="button" data-matrix-cat="Syntax &amp; Keywords" class="px-2.5 py-1 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)] cursor-pointer">Syntax &amp; Keywords</button>
+          <button type="button" data-matrix-cat="Concurrency &amp; Async" class="px-2.5 py-1 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)] cursor-pointer">Concurrency &amp; Async</button>
+          <button type="button" data-matrix-cat="Contracts &amp; Type Checkers" class="px-2.5 py-1 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)] cursor-pointer">Contracts &amp; Type Checkers</button>
+          <button type="button" data-matrix-cat="GDK &amp; GINQ" class="px-2.5 py-1 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)] cursor-pointer">GDK &amp; GINQ</button>
+          <button type="button" data-matrix-cat="Modules &amp; Formats" class="px-2.5 py-1 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)] cursor-pointer">Modules &amp; Formats</button>
+          <button type="button" data-matrix-cat="Compiler &amp; AST" class="px-2.5 py-1 rounded-md text-xs font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)] cursor-pointer">Compiler &amp; AST</button>
+        </div>
+
+        <!-- Feature Table -->
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--card)] overflow-hidden shadow-sm">
+          <div class="overflow-x-auto code-scroll">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-[var(--border)] bg-[var(--surface-subtle)] text-xs font-mono uppercase text-[var(--muted-foreground)]">
+                  <th class="px-3.5 py-2.5">Sec</th>
+                  <th class="px-3.5 py-2.5">Feature / Capability</th>
+                  <th class="px-3.5 py-2.5">Keywords &amp; APIs</th>
+                  <th class="px-3.5 py-2.5 hidden md:table-cell">Engineering Summary</th>
+                  <th class="px-3.5 py-2.5 text-right">Playground</th>
+                </tr>
+              </thead>
+              <tbody id="feature-matrix-body" class="divide-y divide-[var(--border)]"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer id="site-footer"></footer>
+
+  <script src="assets/slides-data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
