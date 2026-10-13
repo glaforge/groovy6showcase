@@ -40,7 +40,9 @@
       current === "dark" ||
       (!current && window.matchMedia("(prefers-color-scheme: dark)").matches);
     document.querySelectorAll("[data-action='toggle-theme']").forEach((btn) => {
-      btn.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+      btn.innerHTML = isDark
+        ? '☀️<span class="hidden sm:inline"> Light</span>'
+        : '🌙<span class="hidden sm:inline"> Dark</span>';
     });
   }
 
@@ -224,39 +226,41 @@
       headerEl.className = "site-navbar";
       headerEl.innerHTML =
         // Tier 1: Brand + Search + Batch Runner + Theme Toggle
-        '<div class="docs-container px-4 sm:px-6 h-13 flex items-center justify-between gap-4">' +
-          '<div class="flex items-center gap-3 min-w-0">' +
-            '<a href="index.html" class="flex items-center gap-2.5 no-underline group shrink-0">' +
+        '<div class="docs-container px-3 sm:px-6 h-13 flex items-center justify-between gap-2">' +
+          '<div class="flex items-center gap-2.5 min-w-0">' +
+            '<a href="index.html" class="flex items-center gap-2 no-underline group shrink-0">' +
               '<span class="w-7 h-7 rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] flex items-center justify-center font-bold text-xs shadow-sm">★</span>' +
-              '<span class="font-bold text-sm sm:text-base text-[var(--foreground)] tracking-tight">Apache Groovy <span class="text-[var(--primary)]">6.0</span></span>' +
+              '<span class="font-bold text-sm sm:text-base text-[var(--foreground)] tracking-tight whitespace-nowrap"><span class="hidden sm:inline">Apache </span>Groovy <span class="text-[var(--primary)]">6.0</span></span>' +
             "</a>" +
-            '<span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--muted-foreground)]">' +
+            '<span class="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--muted-foreground)]">' +
               '<span>Developer Portal</span>' +
               '<span>&bull;</span>' +
               '<span class="text-[var(--foreground)] font-medium">7 Pillars &bull; 39 Sections</span>' +
             "</span>" +
           "</div>" +
-          '<div class="flex items-center gap-2 shrink-0">' +
-            '<button type="button" id="btn-open-search" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--primary)] transition cursor-pointer flex items-center gap-2.5">' +
-              '<span>🔍 Search 39 features…</span>' +
-              '<kbd class="px-1.5 py-0.5 text-xs font-mono rounded bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)]">⌘K</kbd>' +
+          '<div class="flex items-center gap-1.5 sm:gap-2 shrink-0">' +
+            '<button type="button" id="btn-open-search" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--primary)] transition cursor-pointer flex items-center gap-1.5 sm:gap-2">' +
+              '<span>🔍</span>' +
+              '<span class="hidden sm:inline">Search 39 features…</span>' +
+              '<span class="sm:hidden">Search</span>' +
+              '<kbd class="hidden md:inline-block px-1.5 py-0.5 text-xs font-mono rounded bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)]">⌘K</kbd>' +
             "</button>" +
-            '<a href="batch-runner.html" class="px-3 py-1.5 rounded-lg text-xs font-medium border no-underline transition flex items-center gap-1.5 ' +
+            '<a href="batch-runner.html" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium border no-underline transition flex items-center gap-1.5 ' +
               (activeId === "batch-runner"
                 ? "bg-emerald-500 text-slate-950 border-emerald-500 font-semibold"
                 : "border-emerald-500/40 bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20") +
             '" title="Open Live GWC Batch Test Runner">' +
-              '<span class="inline-block w-1.5 h-1.5 rounded-full ' + (activeId === "batch-runner" ? "bg-slate-950" : "bg-emerald-500") + '"></span>' +
+              '<span class="inline-block w-1.5 h-1.5 rounded-full shrink-0 ' + (activeId === "batch-runner" ? "bg-slate-950" : "bg-emerald-500") + '"></span>' +
               '<span class="hidden sm:inline">Batch Runner</span>' +
-              '<span class="font-mono text-xs">(46/46)</span>' +
+              '<span class="font-mono text-xs">46/46</span>' +
             "</a>" +
-            '<button type="button" data-action="toggle-theme" class="px-2.5 py-1.5 rounded-lg text-xs font-medium border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] hover:opacity-85 transition cursor-pointer">Theme</button>' +
+            '<button type="button" data-action="toggle-theme" class="px-2 sm:px-2.5 py-1.5 rounded-lg text-xs font-medium border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] hover:opacity-85 transition cursor-pointer" aria-label="Toggle color theme">Theme</button>' +
           "</div>" +
         "</div>" +
         // Tier 2: Dedicated Pillar Navigation Bar
         '<div class="border-t border-[var(--border)] bg-[var(--surface-subtle)]/60">' +
-          '<nav aria-label="Pillar Chapters" class="docs-container px-4 sm:px-6 py-1.5 flex items-center gap-1.5 overflow-x-auto code-scroll">' +
-            '<a href="index.html" class="px-3 py-1 rounded-md text-xs font-medium no-underline transition whitespace-nowrap shrink-0 ' +
+          '<nav aria-label="Pillar Chapters" class="docs-container px-3 sm:px-6 py-1.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar">' +
+            '<a href="index.html" class="px-2.5 sm:px-3 py-1 rounded-md text-xs font-medium no-underline transition whitespace-nowrap shrink-0 ' +
               (activeId === "home"
                 ? "bg-[var(--primary)] text-[var(--primary-foreground)] font-semibold shadow-xs"
                 : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)]") +
@@ -466,32 +470,32 @@
         : '<span class="px-1.5 py-0.5 rounded text-xs font-mono border border-slate-700 text-slate-400">Core Classpath</span>';
 
     return (
-      '<div class="code-panel shadow-sm mt-4" data-playground-id="' + escapeHtml(cardPrefix) + '">' +
-        '<div class="code-panel-header px-3.5 py-2 flex flex-wrap items-center justify-between gap-2">' +
+      '<div class="code-panel shadow-sm mt-4 min-w-0" data-playground-id="' + escapeHtml(cardPrefix) + '">' +
+        '<div class="code-panel-header px-3 py-2 flex flex-wrap items-center justify-between gap-2">' +
           '<div class="flex items-center gap-1.5 flex-wrap">' +
-            '<button type="button" data-pg-mode="snippet" class="px-2.5 py-1 rounded text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer transition">Snippet</button>' +
-            '<button type="button" data-pg-mode="full" class="px-2.5 py-1 rounded text-xs font-medium border border-slate-700 bg-slate-800/90 text-slate-300 hover:bg-slate-700 cursor-pointer transition">Full Runnable Script</button>' +
-            '<button type="button" data-pg-mode="edit" class="px-2.5 py-1 rounded text-xs font-medium border border-slate-700 bg-slate-800/90 text-slate-300 hover:bg-slate-700 cursor-pointer transition">✎ Edit &amp; Tweak</button>' +
-            '<div class="hidden sm:flex items-center gap-1 ml-1">' + grabBadges + "</div>" +
+            '<button type="button" data-pg-mode="snippet" class="px-2 sm:px-2.5 py-1 rounded text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer transition">Snippet</button>' +
+            '<button type="button" data-pg-mode="full" class="px-2 sm:px-2.5 py-1 rounded text-xs font-medium border border-slate-700 bg-slate-800/90 text-slate-300 hover:bg-slate-700 cursor-pointer transition">Full<span class="hidden sm:inline"> Runnable</span> Script</button>' +
+            '<button type="button" data-pg-mode="edit" class="px-2 sm:px-2.5 py-1 rounded text-xs font-medium border border-slate-700 bg-slate-800/90 text-slate-300 hover:bg-slate-700 cursor-pointer transition">✎ Edit<span class="hidden sm:inline"> &amp; Tweak</span></button>' +
+            '<div class="hidden md:flex items-center gap-1 ml-1">' + grabBadges + "</div>" +
           "</div>" +
-          '<div class="flex items-center gap-1.5">' +
+          '<div class="flex items-center gap-1.5 flex-wrap">' +
             '<button type="button" data-pg-action="reset" class="hidden px-2 py-1 rounded text-xs font-medium border border-slate-600 bg-slate-800 text-slate-300 hover:bg-slate-700 cursor-pointer" title="Restore original Groovy 6 script">↺ Reset</button>' +
             '<button type="button" data-pg-action="run" class="px-2.5 py-1 rounded text-xs font-semibold border border-emerald-500/50 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 cursor-pointer transition">▶ Run</button>' +
-            '<button type="button" data-pg-action="copy" class="px-2.5 py-1 rounded text-xs font-medium border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 cursor-pointer transition">Copy</button>' +
-            '<a data-pg-link="gwc" href="' + escapeHtml(consoleUrl) + '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 no-underline inline-flex items-center gap-1">Open in GWC ↗</a>' +
+            '<button type="button" data-pg-action="copy" class="px-2 sm:px-2.5 py-1 rounded text-xs font-medium border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 cursor-pointer transition">Copy</button>' +
+            '<a data-pg-link="gwc" href="' + escapeHtml(consoleUrl) + '" target="_blank" rel="noopener noreferrer" class="px-2 sm:px-2.5 py-1 rounded text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 no-underline inline-flex items-center gap-1"><span class="hidden sm:inline">Open in </span>GWC ↗</a>' +
           "</div>" +
         "</div>" +
         '<div data-pg-view="code" class="relative">' +
-          '<pre class="p-4 text-xs font-mono overflow-x-auto code-scroll leading-relaxed m-0 select-text"><code data-pg-highlight>' +
+          '<pre class="p-3.5 sm:p-4 text-xs font-mono overflow-x-auto code-scroll leading-relaxed m-0 select-text"><code data-pg-highlight>' +
             highlightGroovy(section.code) +
           "</code></pre>" +
           '<textarea data-pg-editor class="code-editor hidden" spellcheck="false" aria-label="Editable Groovy 6 script">' +
             escapeHtml(section.fullCode) +
           "</textarea>" +
         "</div>" +
-        '<div data-pg-console class="border-t border-slate-800 bg-slate-950/90 px-4 py-2.5 flex flex-col gap-1.5 text-xs font-mono">' +
+        '<div data-pg-console class="border-t border-slate-800 bg-slate-950/90 px-3.5 sm:px-4 py-2.5 flex flex-col gap-1.5 text-xs font-mono">' +
           '<div class="flex flex-wrap items-center justify-between gap-2">' +
-            '<div class="flex items-center gap-2 min-w-0">' +
+            '<div class="flex items-center gap-2 min-w-0 max-w-full">' +
               '<span data-pg-dot class="inline-block w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>' +
               '<span data-pg-out class="text-emerald-400 truncate">' + escapeHtml(section.verifiedOut || section.expectedOutput) + "</span>" +
             "</div>" +
@@ -734,16 +738,16 @@
     if (articleEl) {
       articleEl.innerHTML =
         // Pillar Hero Banner
-        '<div class="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 sm:p-8 shadow-sm hero-mesh mb-8">' +
+        '<div class="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 sm:p-8 shadow-sm hero-mesh mb-5 sm:mb-8 min-w-0">' +
           '<div class="flex flex-wrap items-center justify-between gap-2 mb-3">' +
-            '<div class="flex items-center gap-2">' +
+            '<div class="flex flex-wrap items-center gap-1.5 sm:gap-2">' +
               '<span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">Pillar ' +
                 escapeHtml(pillar.num) +
               "</span>" +
-              '<span class="px-2.5 py-0.5 rounded-md text-xs font-mono border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--muted-foreground)]">' +
+              '<span class="px-2 py-0.5 rounded-md text-xs font-mono border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--muted-foreground)] break-all">' +
                 escapeHtml(pillar.scriptFile) +
               "</span>" +
-              '<span class="px-2.5 py-0.5 rounded-md text-xs font-mono bg-emerald-500/15 text-emerald-500 font-semibold">' +
+              '<span class="px-2 py-0.5 rounded-md text-xs font-mono bg-emerald-500/15 text-emerald-500 font-semibold">' +
                 pillar.sections.length + " Verified Sections" +
               "</span>" +
             "</div>" +
@@ -751,10 +755,10 @@
               "▶ Run All " + pillar.sections.length + " Sections Live" +
             "</button>" +
           "</div>" +
-          '<h1 class="text-2xl sm:text-3xl font-bold text-[var(--foreground)] tracking-tight m-0 mb-2">' +
+          '<h1 class="text-xl sm:text-3xl font-bold text-[var(--foreground)] tracking-tight m-0 mb-2">' +
             formatInlineCode(pillar.title) +
           "</h1>" +
-          '<p class="text-sm sm:text-base text-[var(--muted-foreground)] m-0 mb-4 max-w-3xl">' +
+          '<p class="text-xs sm:text-base text-[var(--muted-foreground)] m-0 mb-4 max-w-3xl">' +
             escapeHtml(pillar.subtitle) +
           "</p>" +
           '<div class="flex flex-wrap items-center gap-1.5">' +
@@ -769,14 +773,35 @@
           "</div>" +
         "</div>" +
 
+        // Mobile & Tablet Collapsible "On this page" Section Jump Menu (hidden on lg+)
+        '<details class="lg:hidden rounded-xl border border-[var(--border)] bg-[var(--card)] mb-6 shadow-xs">' +
+          '<summary class="px-4 py-3 text-xs font-semibold text-[var(--foreground)] cursor-pointer flex items-center justify-between select-none">' +
+            '<span>📑 On this page — Jump to section (' + pillar.sections.length + ")</span>" +
+            '<span class="text-[var(--muted-foreground)] font-mono">▼</span>' +
+          "</summary>" +
+          '<ul class="px-3 pb-3 pt-1 border-t border-[var(--border)] space-y-1 list-none m-0">' +
+            pillar.sections
+              .map(
+                (s) =>
+                  '<li><a href="#' +
+                  escapeHtml(s.slug) +
+                  '" class="block py-1.5 px-2.5 rounded-lg text-xs no-underline text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--surface-subtle)]">' +
+                  '<strong class="font-mono text-[var(--primary)]">' + escapeHtml(s.id) + "</strong> " +
+                  formatInlineCode(s.title) +
+                  "</a></li>"
+              )
+              .join("") +
+          "</ul>" +
+        "</details>" +
+
         // Subsections
-        '<div class="space-y-10">' +
+        '<div class="space-y-8 sm:space-y-10 min-w-0">' +
           pillar.sections
             .map(
               (sec) =>
                 '<section id="' +
                 escapeHtml(sec.slug) +
-                '" class="doc-section rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 sm:p-7 shadow-sm">' +
+                '" class="doc-section rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-7 shadow-sm min-w-0">' +
                   '<div class="flex flex-wrap items-center justify-between gap-2 mb-2">' +
                     '<div class="flex items-center gap-2">' +
                       '<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">' +
@@ -797,12 +822,12 @@
                         .join("") +
                     "</div>" +
                   "</div>" +
-                  '<h2 class="text-lg sm:text-xl font-bold text-[var(--foreground)] mt-1 mb-3">' +
+                  '<h2 class="text-base sm:text-xl font-bold text-[var(--foreground)] mt-1 mb-3">' +
                     '<a href="#' + escapeHtml(sec.slug) + '" class="no-underline text-inherit hover:text-[var(--primary)]">' +
                       formatInlineCode(sec.title) +
                     "</a>" +
                   "</h2>" +
-                  '<div class="space-y-3 text-sm text-[var(--foreground)] leading-relaxed">' +
+                  '<div class="space-y-3 text-xs sm:text-sm text-[var(--foreground)] leading-relaxed">' +
                     (sec.prose || [])
                       .map((p) => '<p class="m-0 text-[var(--muted-foreground)]">' + formatInlineCode(p) + "</p>")
                       .join("") +
@@ -810,8 +835,8 @@
 
                   // Groovy 5 vs Groovy 6 Comparison Grid
                   (sec.beforeAfter
-                    ? '<div class="compare-grid mt-5">' +
-                        '<div class="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] overflow-hidden flex flex-col">' +
+                    ? '<div class="compare-grid mt-5 min-w-0">' +
+                        '<div class="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] overflow-hidden flex flex-col min-w-0">' +
                           '<div class="px-3 py-1.5 border-b border-[var(--border)] text-xs font-mono font-semibold text-rose-400 flex items-center justify-between">' +
                             '<span>Before: ' + escapeHtml(sec.beforeAfter.beforeTitle) + "</span>" +
                           "</div>" +
@@ -819,7 +844,7 @@
                             highlightGroovy(sec.beforeAfter.beforeCode) +
                           "</code></pre>" +
                         "</div>" +
-                        '<div class="rounded-xl border border-emerald-500/30 bg-[var(--surface-subtle)] overflow-hidden flex flex-col">' +
+                        '<div class="rounded-xl border border-emerald-500/30 bg-[var(--surface-subtle)] overflow-hidden flex flex-col min-w-0">' +
                           '<div class="px-3 py-1.5 border-b border-emerald-500/30 text-xs font-mono font-semibold text-emerald-500 flex items-center justify-between">' +
                             '<span>After: ' + escapeHtml(sec.beforeAfter.afterTitle) + "</span>" +
                             "<span>✓ Groovy 6</span>" +
@@ -833,8 +858,8 @@
 
                   // Under the Hood Callout
                   (sec.underTheHood
-                    ? '<div class="mt-4 p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] text-xs text-[var(--muted-foreground)] flex items-start gap-2.5">' +
-                        '<span class="text-amber-500 font-bold shrink-0 mt-0.5">⚙ Under the Hood:</span>' +
+                    ? '<div class="mt-4 p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] text-xs text-[var(--muted-foreground)] flex flex-col sm:flex-row items-start gap-1.5 sm:gap-2.5">' +
+                        '<span class="text-amber-500 font-bold shrink-0">⚙ Under the Hood:</span>' +
                         '<span>' + formatInlineCode(sec.underTheHood) + "</span>" +
                       "</div>"
                     : "") +
@@ -934,8 +959,8 @@
     if (bentoEl) {
       bentoEl.innerHTML = PILLARS.map((p) => {
         return (
-          '<div class="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 sm:p-6 shadow-sm flex flex-col justify-between gap-4 hover:border-[var(--primary)] transition group">' +
-            '<div>' +
+          '<div class="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-6 shadow-sm flex flex-col justify-between gap-4 hover:border-[var(--primary)] transition group min-w-0">' +
+            '<div class="min-w-0">' +
               '<div class="flex items-center justify-between gap-2 mb-3">' +
                 '<span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-bold bg-[var(--primary)] text-[var(--primary-foreground)]">Pillar ' +
                   escapeHtml(p.num) +
@@ -962,15 +987,15 @@
                   )
                   .join("") +
               "</div>" +
-              '<ul class="space-y-1 list-none p-0 m-0 border-t border-[var(--border)] pt-3">' +
+              '<ul class="space-y-1 list-none p-0 m-0 border-t border-[var(--border)] pt-3 min-w-0">' +
                 p.sections
                   .map(
                     (s) =>
-                      "<li>" +
+                      '<li class="min-w-0">' +
                         '<a href="' +
                         escapeHtml(p.page + "#" + s.slug) +
-                        '" class="flex items-center justify-between gap-2 py-0.5 text-xs no-underline text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition">' +
-                          '<span class="truncate"><strong class="font-mono text-[var(--primary)]">' +
+                        '" class="flex items-center justify-between gap-2 py-0.5 text-xs no-underline text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition min-w-0">' +
+                          '<span class="truncate min-w-0"><strong class="font-mono text-[var(--primary)]">' +
                             escapeHtml(s.id) +
                           "</strong> " +
                           formatInlineCode(s.title) +
@@ -984,9 +1009,9 @@
                   .join("") +
               "</ul>" +
             "</div>" +
-            '<div class="pt-3 border-t border-[var(--border)] flex items-center justify-between">' +
-              '<span class="text-xs font-mono text-[var(--muted-foreground)]">' + escapeHtml(p.scriptFile) + "</span>" +
-              '<a href="' + escapeHtml(p.page) + '" class="px-3 py-1 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] no-underline hover:opacity-90 transition">Explore Pillar ' + escapeHtml(p.num) + " →</a>" +
+            '<div class="pt-3 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-2">' +
+              '<span class="text-xs font-mono text-[var(--muted-foreground)] truncate">' + escapeHtml(p.scriptFile) + "</span>" +
+              '<a href="' + escapeHtml(p.page) + '" class="px-3 py-1 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] no-underline hover:opacity-90 transition shrink-0">Explore Pillar ' + escapeHtml(p.num) + " →</a>" +
             "</div>" +
           "</div>"
         );
